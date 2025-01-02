@@ -1,0 +1,35 @@
+#include<bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
+//Vishal Kumar Singh
+//AVS
+int main(){
+ll tt;cin>>tt;
+while(tt--){
+//ios::sync_with_stdio(false);
+//cin.tie(NULL);
+    ll n;cin>>n;
+    ll num=1;
+    vector<ll>a;
+    for (int i = 1; i <=n; i++)
+    {
+       a.push_back(i);
+    }
+    
+    for (int i = 0; i < n; i++)
+    {
+        int ind=0;
+        for (int j = 0; j < n; j++)
+        {
+           
+              cout<<a[ind++]<<" ";
+            
+        }
+        cout<<endl;
+        reverse(a.begin(),a.end());
+
+    }
+    
+    }
+}
