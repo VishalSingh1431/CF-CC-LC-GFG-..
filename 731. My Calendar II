@@ -1,0 +1,25 @@
+
+class MyCalendarTwo {
+public:
+    vector<pair<int, int>> v;
+    MyCalendarTwo() {}
+
+    bool book(int start, int end) {
+        end--;
+        sort(v.begin(), v.end());
+        int mini = INT_MAX;
+        int maxi = INT_MIN;
+
+        int sum = 0;
+        for (auto& i : v) {
+            if (start <= i.second && end >= i.first) {
+                if (i.first >= mini && i.first <= maxi)return 0;
+                
+                mini = i.first;
+                maxi = i.second;
+            }
+        }
+        v.push_back({start, end});
+        return 1;
+    }
+};
