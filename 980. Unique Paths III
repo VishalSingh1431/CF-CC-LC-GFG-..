@@ -1,0 +1,54 @@
+class Solution {
+public:
+    int n, m;
+    int start_i, start_j;
+    int end_i, end_j;
+    int valid_path = 0;
+
+    int dfs(vector<vector<int>>& grid, int i, int j, int count) {
+        if (i < 0 || i >= n || j < 0 || j >= m || grid[i][j] == -1) 
+            return 0;
+        
+        if (i == end_i && j == end_j) 
+            return count == valid_path;
+
+        // visited
+        int temp = grid[i][j];
+        grid[i][j] = -1;
+
+        int total_paths = 0;
+
+        total_paths += dfs(grid, i + 1, j, count + 1);
+        total_paths += dfs(grid, i - 1, j, count + 1);
+        total_paths += dfs(grid, i, j + 1, count + 1);
+        total_paths += dfs(grid, i, j - 1, count + 1);
+
+        // Backtrack
+        grid[i][j] = temp;
+
+        return total_paths;
+    }
+
+    int uniquePathsIII(vector<vector<int>>& grid) {
+        n = grid.size();
+        m = grid[0].size();
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (grid[i][j] == 1) {
+                    start_i = i;
+                    start_j = j;
+                }
+                if (grid[i][j] == 2) {
+                    end_i = i;
+                    end_j = j;
+                }
+                if (grid[i][j] != -1) {
+                    valid_path++;
+                }
+            }
+        }
+
+        return dfs(grid, start_i, start_j, 1);
+    }
+};
