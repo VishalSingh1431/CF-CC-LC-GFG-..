@@ -1,0 +1,37 @@
+class Solution {
+public:
+    bool hasMatch(string s, string p) {
+        string a, b;
+        int i = 0;
+        
+        while(i < p.size() && p[i] != '*') {
+            a += p[i++];
+        }
+        i++;
+        while(i < p.size()) {
+            b += p[i++];
+        }
+        
+        if(a.size() == 0) {
+            return s.find(b) != string::npos;
+        }
+        if(b.size() == 0) {
+            return s.find(a) != string::npos;
+        }
+        
+        for(int i = 0; i <s.size(); i++) {
+            if(s[i]!=a[0])continue;
+            int k=0,check=1,j=i;
+            for(;j<i+a.size();j++){
+                if(s[j]!=a[k++]){
+                    check=0;break;
+                }
+            }
+            if(check)for(j;j<s.size();j++){
+                if(s.substr(j,b.size())==b)return 1;
+            }
+            
+        }
+        return false;
+    }
+};
