@@ -1,0 +1,23 @@
+class Solution {
+public:
+    long long calculateScore(string s) {
+        map<char, stack<int>> m;
+        map<char, char> mirror;
+        char p = 'z';
+        for (char ch = 'a'; ch <= 'z'; ch++) {
+            mirror[ch] = p--;
+        }
+        
+        long long ans = 0;
+        for (int i = 0; i < s.size(); i++) {
+            
+            char mr=mirror[s[i]];
+            if (!m[mr].empty()) {
+                ans += i - m[mr].top();
+                m[mr].pop();
+            }
+            else m[s[i]].push(i);
+        }
+        return ans;
+    }
+};
