@@ -1,0 +1,37 @@
+class Solution {
+public:
+    int myAtoi(string s) {
+        int i=0;
+        // leading space
+        while(s[i]==' ')i++;
+        int sign=0;
+        //sign
+        if(s[i]=='-'){sign--;i++;}
+        if(sign==0&&s[i]=='+'){sign++;i++;}
+
+        string t;
+        // leading 0
+        while(s[i]=='0')i++;
+        for(;i<s.size();i++){
+            if(s[i]>='0'&&s[i]<='9'){
+                t+=s[i];
+            }
+            else break;
+        }
+        long long n=0;
+        // out of range
+        if(t.size()>10){
+            if(sign<0)return INT_MIN;
+            return INT_MAX;
+        }
+        if(t.size())n=stol(t);
+        if(sign<0)n*=-1;
+
+        // out of range
+        if(n<INT_MIN)return INT_MIN;
+        if(n>INT_MAX)return INT_MAX;
+        
+        return n;
+
+    }
+};
