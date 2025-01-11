@@ -1,0 +1,58 @@
+class Solution {
+public:
+    string fn(vector<string>& words, int i, int j, int maxWidth, int sum) {
+        int space = i - j;
+        int rem = maxWidth - sum;
+        string s;
+        if (i == words.size() - 1) {
+            while (j <= i) {
+                s += words[j++];
+                if (j <= i) s += ' ';
+            }
+            while (s.size() < maxWidth) s += ' ';
+        } 
+        else if (space == 0) {
+            s = words[i];
+            while (s.size() < maxWidth) s += ' ';
+        } 
+        else {
+            int extra = rem % space;
+            rem /= space;
+            string t(rem, ' ');
+            for (; j < i; ++j) {
+                s += words[j];
+                s += t;
+                if (extra > 0) {
+                    s += ' ';
+                    extra--;
+                }
+            }
+            s += words[i];
+        }
+        return s;
+    }
+
+    vector<string> fullJustify(vector<string>& words, int maxWidth) {
+        vector<string> ans;
+        int j = 0, i = 0, sum = 0, space = 0;
+        for (; i < words.size(); i++) {
+            if (sum == 0) {
+                sum += words[i].size();
+            } 
+            else {
+                space++;
+                if (sum + words[i].size() + space <= maxWidth) {
+                    sum += words[i].size();
+                } 
+                else {
+                    ans.push_back(fn(words, i - 1, j, maxWidth, sum));
+                    sum = words[i].size();
+                    j = i;
+                    space = 0;
+                }
+            }
+        }
+        ans.push_back(fn(words, i - 1, j, maxWidth, sum));
+        return ans;
+    }
+};
