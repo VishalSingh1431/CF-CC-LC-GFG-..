@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int removeCoveredIntervals(vector<vector<int>>& a) {
+        int cnt = a.size();
+        vector<pair<int, int>> v;
+        for (auto& i : a) {
+            v.push_back({i[0], -i[1]});
+        }
+        sort(v.begin(), v.end());
+        int mini = v[0].first;
+        int maxi = -v[0].second;
+        for (int i = 1; i < v.size(); i++) {
+            if (mini <= v[i].first&& maxi >= -v[i].second) {
+                cnt--;
+            } 
+            else {
+                mini = v[i].first;
+                maxi = -v[i].second;
+            }
+        }
+        return cnt;
+    }
+};
