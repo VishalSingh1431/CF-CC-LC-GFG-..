@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int largestValsFromLabels(vector<int>& values, vector<int>& labels, int numWanted, int useLimit) {
+        map<int,int>m;
+        vector<pair<int,int>>v;
+        for(int i=0;i<values.size();i++){
+            v.push_back({values[i],labels[i]});
+        }
+        sort(v.rbegin(),v.rend());
+
+        int sum=0;
+        for(auto &i:v){
+            if(numWanted==0)break;
+
+            sum+=i.first;
+            m[i.second]++;
+            
+            if(m[i.second]>useLimit)sum-=i.first;
+            else numWanted--;
+
+        }
+        return sum;
+
+    }
+};
